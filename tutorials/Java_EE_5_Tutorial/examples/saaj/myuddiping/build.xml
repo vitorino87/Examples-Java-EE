@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MyUddiPing" default="default" basedir=".">
+    <description>Builds, tests, and runs the project MyUddiPing.</description>
+    <property name="is.java-client.module" value="true"/>
+    <import file="../../bp-project/main.xml"/>
+
+  <property name="properties.file" value="uddi.properties" />
+
+  <target name="run-ping" depends="compile"
+    description="Runs MyUddiPing to extract the name and description from the XML reply. Argument: -Dbusiness-name=&lt;string&gt;">
+    <echo message="Running MyUddiPing to extract the name and description from the XML reply."/>
+    <java classname="MyUddiPing" fork="yes">
+      <arg value="${properties.file}" />
+      <arg value="${business-name}" />
+      <classpath refid="classpath" />
+      </java>
+  </target>
+
+</project>

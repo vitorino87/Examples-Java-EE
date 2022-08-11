@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="pull-parser" default="default" basedir=".">
+    <description>Builds, tests, and runs the project pull-parser.</description>
+    <property name="is.java-client-module" value="true"/>
+    <import file="../../bp-project/main.xml"/>
+
+  <path id="classpath">
+    <pathelement path="src" />
+    <pathelement path="build/classes" />
+    <pathelement path="build/schemas" />
+    <fileset dir="${javaee.home}" includes="lib/javaee.jar" /> 
+    <fileset dir="${javaee.home}" includes="lib/appserv-rt.jar" />
+    <fileset dir="${javaee.home}" includes="lib/appserv-ws.jar" />
+  </path>
+
+ <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+    <classpath refid="classpath" />
+  </taskdef>
+
+  <!--compile Java source files-->
+  <target name="runxjc" description="Compile all Java source files">
+    <echo message="Compiling the schema..." />
+    <mkdir dir="build/gen-src" />
+    <xjc schema="contact.xsd" package="contact" target="build/gen-src">
+      <produces dir="build/gen-src/contact" includes="**/*.java" />
+    </xjc>
+    <echo message="Compiling the java source files..." />
+    <mkdir dir="build/classes" />
+    <javac destdir="build/classes" debug="on">
+      <src path="src" />
+      <src path="build/gen-src" />
+      <classpath refid="classpath" />
+    </javac>
+  </target>
+
+  <target name="runapp" depends="runxjc" description="Run the sample app">
+    <echo message="Running the sample application..." />
+    <java classname="Main" fork="true">
+      <classpath refid="classpath" />
+      <arg value="Jane Smith" />
+    </java>
+  </target>
+
+</project>

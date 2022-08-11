@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="j2s-xmlAdapter-field" default="default" basedir=".">
+    <description>Builds, tests, and runs the project j2s-xmlAdapter-field.</description>
+    <property name="is.java-client-module" value="true"/>
+    <import file="../../bp-project/main.xml"/>
+
+  <path id="classpath">
+    <pathelement path="src" />
+    <pathelement path="build/classes" />
+    <pathelement path="build/schemas" />
+    <fileset dir="${javaee.home}" includes="lib/javaee.jar" /> 
+    <fileset dir="${javaee.home}" includes="lib/appserv-rt.jar" />
+    <fileset dir="${javaee.home}" includes="lib/appserv-ws.jar" />
+  </path>
+
+  <taskdef name="schemagen" classname="com.sun.tools.jxc.SchemaGenTask">
+    <classpath refid="classpath" />
+  </taskdef>
+
+  <target name="genschema" description="generate schema files">
+    <echo message="Generating schemas..." />
+    <mkdir dir="build/schemas" />
+    <schemagen destdir="build/schemas">
+      <src path="src" />
+      <classpath refid="classpath" />
+    </schemagen>
+  </target>
+
+  <target name="runapp" depends="genschema, compile" description="Run the sample app">
+    <echo message="Running the sample application..." />
+    <java classname="Main" fork="true">
+      <classpath refid="classpath" />
+    </java>
+  </target>
+
+</project>

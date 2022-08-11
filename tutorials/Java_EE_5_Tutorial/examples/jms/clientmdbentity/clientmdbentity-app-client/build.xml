@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="clientmdbentity-app-client" default="default" basedir=".">
+    <description>Builds, tests, and runs the project clientmdbentity-app-client.</description>
+    <property name="is.app-client.module" value="true"/>
+    <property name="extra.classpath" value="../clientmdbentity-ejb/build/jar/" />
+    <import file="../../../bp-project/main.xml"/>
+
+</project>

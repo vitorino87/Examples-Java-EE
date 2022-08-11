@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="inline-customize" default="default" basedir=".">
+    <description>Builds, tests, and runs the project inline-customize.</description>
+    <property name="is.java-client-module" value="true"/>
+    <import file="../../bp-project/main.xml"/>
+
+  <path id="classpath">
+    <pathelement path="src" />
+    <pathelement path="build/classes" />
+    <pathelement path="build/schemas" />
+    <fileset dir="${javaee.home}" includes="lib/javaee.jar" /> 
+    <fileset dir="${javaee.home}" includes="lib/appserv-rt.jar" />
+    <fileset dir="${javaee.home}" includes="lib/appserv-ws.jar" />
+  </path>
+
+  <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+    <classpath refid="classpath" />
+  </taskdef>
+
+  <!--compile Java source files-->
+  <target name="runxjc" description="Compile all Java source files">
+    <mkdir dir="build/classes" />
+    <javac destdir="build/classes" debug="on" srcdir="src">
+      <include name="**/MyDatatypeConverter.java" />
+      <classpath refid="classpath" />
+    </javac>
+    <echo message="Compiling the schema..." />
+    <mkdir dir="build/gen-src" />
+    <xjc schema="po.xsd" target="build/gen-src">
+      <produces dir="build/gen-src" includes="**/*.java" />
+      <classpath>
+        <!--XJC needs to read compiled datatype converters-->
+        <pathelement path="build/classes" />
+      </classpath>
+    </xjc>
+    <echo message="Compiling the java source files..." />
+    <mkdir dir="build/classes" />
+    <javac destdir="build/classes" debug="on">
+      <src path="src" />
+      <src path="build/gen-src" />
+      <classpath refid="classpath" />
+    </javac>
+  </target>
+
+  <target name="runapp" depends="runxjc" description="Run the sample application">
+    <echo message="Running the sample application..." />
+    <java classname="Main" fork="true">
+      <classpath refid="classpath" />
+    </java>
+  </target>
+
+</project>

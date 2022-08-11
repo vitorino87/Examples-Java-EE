@@ -1,0 +1,30 @@
+<soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">
+ <soap-env:Header/>
+ <soap-env:Body>
+  <businessList xmlns="urn:uddi-org:api_v2" generic="2.0" 
+   operator="Sun Microsystems Inc." truncated="false">
+   <businessInfos>
+    <businessInfo businessKey="109ff163-1d01-09ff-3aa7-0ef3b6c21250">
+     <name xml:lang="en">The Coffee Break</name>
+     <description xml:lang="en">Purveyor of the finest coffees. Established 1950</description>
+     <serviceInfos>
+      <serviceInfo businessKey="109ff163-1d01-09ff-3aa7-0ef3b6c21250" 
+       serviceKey="109ff163-1d21-09ff-e615-7a1f0fcc8962">
+       <name xml:lang="en">My Service Name</name>
+      </serviceInfo>
+     </serviceInfos>
+    </businessInfo>
+    <businessInfo businessKey="109ff33a-1121-09ff-f855-5994a541080c">
+     <name xml:lang="en">The Postal Coffee Break</name>
+     <description xml:lang="en">Purveyor of the finest coffees. Established 1950</description>
+     <serviceInfos>
+      <serviceInfo businessKey="109ff33a-1121-09ff-f855-5994a541080c" 
+       serviceKey="109ff33a-1131-09ff-fde0-2e62cf1a6157">
+       <name xml:lang="en">My Service Name</name>
+      </serviceInfo>
+     </serviceInfos>
+    </businessInfo>
+   </businessInfos>
+  </businessList>
+ </soap-env:Body>
+</soap-env:Envelope>
